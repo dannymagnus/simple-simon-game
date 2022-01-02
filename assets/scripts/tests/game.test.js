@@ -33,6 +33,12 @@ describe('game object contains correct keys', () => {
     test('choices key contains correct ids', () => {
         expect(game.choices).toEqual(['button1','button2','button3','button4']);
     });
+    test('lastButton key object exists', () => {
+        expect(game.lastButton).toEqual("");
+    });
+    test('choices key contains correct ids', () => {
+        expect(game.turnInProgress).toBe(false);
+    });
 });
 
 describe('new game works correctly', () => {
@@ -98,5 +104,15 @@ describe('gameplay works correctly', () => {
         game.playerMoves.push('wrong');
         playerTurn();
         expect(window.alert).toBeCalledWith("Wrong move!");
+    });
+    test('should toggle turn in progress to true', () => {
+        showTurns();
+        expect(game.turnInProgress).toBe(true);
+    });
+    test("clicking during computer sequence should fail", () => {
+        showTurns();
+        game.lastButton = "";
+        document.getElementById("button2").click();
+        expect(game.lastButton).toEqual("");
     });
 });
